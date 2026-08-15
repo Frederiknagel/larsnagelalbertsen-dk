@@ -48,7 +48,7 @@ export default {
 
     if (response.status === 204) {
       return new Response(
-        "✅ Koncertlisten opdateres nu — det tager ca. et halvt minut, før ændringen er live på hjemmesiden.",
+        "✅ Koncertlisten opdateres nu — der kan gå op til 10 minutter, før ændringen er live på hjemmesiden.",
         { headers: { "Content-Type": "text/plain; charset=utf-8" } }
       );
     }

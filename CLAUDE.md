@@ -120,10 +120,12 @@ sitet (kun for `sync_events.py`, se `README.md`).
 - [x] Skriv Lars' bio-tekst til forsiden
 - [x] Vælg portrætfoto af Lars (beskåret til højkant/3:4)
 - [x] Forbinde `sync_events.py` til et rigtigt Google Sheet
-- [ ] **Fuldfør Cloudflare Worker-opsætningen** for "opdater nu"-linket
-      — se `cloudflare-worker/README.md`, trin 1-6. Uden dette virker
-      Google Sheet-opdateringer stadig, men kun ved manuel kørsel af
-      `sync_events.py` eller manuel "Run workflow" i GitHub Actions
+- [x] Cloudflare Worker-opsætningen for "opdater nu"-linket — testet
+      end-to-end (Sheet-link → Worker → GitHub Action → `events.json`
+      → live side). Linket ligger i selve Google Sheet'et til Lars.
+      Husk: `GOOGLE_SHEET_CSV_URL`-secret skal være et **repository
+      secret**, ikke et environment secret (workflowet definerer ingen
+      `environment:`, så kun repo-secrets er synlige for det)
 - [ ] Bekræft DNS er slået igennem (`larsnagelalbertsen.dk` skal give
       HTTP 200, ikke DNS-fejl)
 - [ ] Billeder i `images/` er fra prototypen — bekræft med Lars om de
