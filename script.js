@@ -47,11 +47,16 @@ function eventToHtml(event) {
     ? `<a class="event-link" href="${event.link}" target="_blank" rel="noopener">billetter →</a>`
     : "";
 
+  // valgfrit projekt-mærke (fx "STGYE") — udelades for løsere/frilance-optrædener
+  const projectHtml = event.project
+    ? `<span class="event-project">${escapeHtml(event.project)}</span>`
+    : "";
+
   return `
     <li class="event-card">
       <div class="event-date">${day}<small>${month}</small></div>
       <div class="event-info">
-        <p class="event-venue">${escapeHtml(event.venue)}${event.title ? " · " + escapeHtml(event.title) : ""}</p>
+        <p class="event-venue">${escapeHtml(event.venue)}${event.title ? " · " + escapeHtml(event.title) : ""}${projectHtml}</p>
         <p class="event-city">${escapeHtml(event.city)}${event.time ? " · kl. " + event.time : ""}</p>
       </div>
       ${linkHtml}

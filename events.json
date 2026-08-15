@@ -4,7 +4,8 @@
     "time": "20:00",
     "venue": "Jazzhus Montmartre",
     "city": "København",
-    "title": "Stan Gets In Your Eyes",
+    "title": "",
+    "project": "STGYE",
     "link": "https://example.dk/billetter/montmartre-sep"
   },
   {
@@ -13,6 +14,16 @@
     "venue": "Bygningen",
     "city": "Vordingborg",
     "title": "",
+    "project": "STGYE",
+    "link": ""
+  },
+  {
+    "date": "2026-10-18",
+    "time": "20:30",
+    "venue": "Privat jazzarrangement",
+    "city": "Roskilde",
+    "title": "",
+    "project": "",
     "link": ""
   },
   {
@@ -21,6 +32,7 @@
     "venue": "Alexandra",
     "city": "København",
     "title": "Efterårskoncert",
+    "project": "STGYE",
     "link": "https://example.dk/billetter/alexandra-nov"
   }
 ]

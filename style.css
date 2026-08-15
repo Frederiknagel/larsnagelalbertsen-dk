@@ -27,6 +27,83 @@ html, body {
   overflow-x: hidden;
 }
 
+/* --- site nav (wordmark + tab to STGYE) --- */
+.site-nav {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 0;
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+.site-nav-name {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 1rem;
+  color: var(--ink);
+  text-decoration: none;
+  padding-bottom: 0.2rem;
+  border-bottom: 2px solid transparent;
+}
+.site-nav-name.is-active { border-bottom-color: var(--ink); }
+.site-nav-tab {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+  padding-bottom: 0.2rem;
+  border-bottom: 2px solid transparent;
+}
+.site-nav-tab:hover { color: var(--charcoal); }
+.site-nav-tab.is-active {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+/* --- hub forside: to-kolonne profil (som albertewinding.dk) --- */
+.hub {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.profile {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-bottom: 3.5rem;
+}
+.profile-photo {
+  flex: 0 0 220px;
+  max-width: 220px;
+}
+.profile-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  filter: grayscale(15%);
+}
+.profile-text {
+  flex: 1;
+  min-width: 0;
+  color: var(--body);
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+.profile-text p { margin: 0 0 1rem; }
+.profile-text a { color: var(--charcoal); }
+.profile-text a:hover { color: var(--ink); }
+
+@media (max-width: 560px) {
+  .profile { flex-direction: column; }
+  .profile-photo { flex: none; max-width: 260px; }
+}
+
 /* --- hero --- */
 .hero {
   position: relative;
@@ -129,6 +206,16 @@ main {
 }
 .section-intro a { color: var(--charcoal); }
 
+.family-note {
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -204,6 +291,20 @@ main {
 .event-info { flex: 1; }
 .event-venue { font-weight: 600; margin: 0; color: var(--paper); }
 .event-city { color: var(--on-dark-dim); font-size: 0.85rem; margin: 0.15rem 0 0; }
+
+.event-project {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--on-dark-dim);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--on-dark-dim);
+  vertical-align: middle;
+}
 
 .event-link {
   color: var(--paper);
