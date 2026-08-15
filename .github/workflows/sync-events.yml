@@ -1,0 +1,38 @@
+name: Sync koncerter fra Google Sheet
+
+# Trigges on-demand via GitHub's API (fra Cloudflare Worker'en, som
+# "opdater"-linket i Google Sheet peger på) — ingen tidsplan/polling.
+# Kan også køres manuelt fra GitHub -> Actions-fanen -> "Run workflow".
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Sæt Python op
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installér afhængigheder
+        run: pip install -r scripts/requirements.txt
+
+      - name: Kør sync-script
+        env:
+          GOOGLE_SHEET_CSV_URL: ${{ secrets.GOOGLE_SHEET_CSV_URL }}
+        run: python scripts/sync_events.py
+
+      - name: Commit og push, hvis events.json er ændret
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add events.json
+          git diff --cached --quiet || git commit -m "Auto-opdater koncerter fra Google Sheet"
+          git push

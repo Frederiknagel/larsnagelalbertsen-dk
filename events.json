@@ -6,7 +6,7 @@
     "city": "Orø",
     "title": "",
     "project": "STGYE",
-    "link": "https://example.dk/billetter/cafebings-sep"
+    "link": ""
   },
   {
     "date": "2026-10-03",
@@ -25,14 +25,5 @@
     "title": "",
     "project": "",
     "link": ""
-  },
-  {
-    "date": "2026-11-21",
-    "time": "21:00",
-    "venue": "Alexandra",
-    "city": "København",
-    "title": "Efterårskoncert",
-    "project": "STGYE",
-    "link": "https://example.dk/billetter/alexandra-nov"
   }
 ]

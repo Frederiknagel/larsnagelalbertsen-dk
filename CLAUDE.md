@@ -67,8 +67,18 @@ selv kan tilføje koncerter uden at røre kode:
 
 - `scripts/sync_events.py` henter et **publiceret** Google Sheet (som
   CSV) og skriver `events.json`
-- Kræver `GOOGLE_SHEET_CSV_URL` i en lokal `.env` (se `.env.sample`)
-- **Status: ikke sat op med et rigtigt Google Sheet endnu**
+- Kræver `GOOGLE_SHEET_CSV_URL` lokalt i `.env` (se `.env.sample`) —
+  eller som GitHub repo-secret, når det køres via Action (se nedenfor)
+- Encoding: `response.encoding = "utf-8"` er sat eksplicit i
+  `fetch_sheet_csv()` — uden det bliver æøå til mojibake, fordi
+  Googles CSV-endpoint ikke altid sender `charset=utf-8` i sin header
+- **Status: sat op og virker** med et rigtigt Google Sheet, delt med
+  Lars som redigerings-adgang
+- **Automatisk opdatering**: `.github/workflows/sync-events.yml`
+  (trigges via `workflow_dispatch`, ikke en tidsplan) + en Cloudflare
+  Worker (`cloudflare-worker/trigger-sync.js`) som fungerer som et
+  "opdater nu"-link i selve Google Sheet'et — se
+  `cloudflare-worker/README.md` for fuld opsætning
 - **Nyt felt**: et valgfrit `project`-felt per event (fx
   `"project": "STGYE"`), så et event kan mærkes med hvilket
   band/projekt det hører til. Udelades feltet, er det bare en
@@ -101,21 +111,21 @@ sitet (kun for `sync_events.py`, se `README.md`).
 
 ## Næste skridt / kendt ufærdigt
 
-- [ ] Byg den nye forside (`/`) — to-kolonne hero + samlet
-      koncertliste, se sitestruktur ovenfor
-- [ ] Flyt den eksisterende `stan-gets-in-your-eyes`-prototype ind som
-      `/stan-gets-in-your-eyes/` — tjek relative stier virker fra
-      understien
-- [ ] Byg topnavigation med wordmark + fane til STGYE-siden
-- [ ] Tilføj `project`-felt til `events.json` og vis det som mærke på
+- [x] Byg den nye forside (`/`) — to-kolonne hero + samlet koncertliste
+- [x] Flyt den eksisterende `stan-gets-in-your-eyes`-prototype ind som
+      `/stan-gets-in-your-eyes/`
+- [x] Byg topnavigation med wordmark + faner (STGYE + Gennem tiden)
+- [x] Tilføj `project`-felt til `events.json` og vis det som mærke på
       event-kortene
-- [ ] Skriv Lars' bio-tekst til forsiden (kort, som Albertes)
-- [ ] Vælg/tag portrætfoto af Lars til forsidens to-kolonne-sektion
+- [x] Skriv Lars' bio-tekst til forsiden
+- [x] Vælg portrætfoto af Lars (beskåret til højkant/3:4)
+- [x] Forbinde `sync_events.py` til et rigtigt Google Sheet
+- [ ] **Fuldfør Cloudflare Worker-opsætningen** for "opdater nu"-linket
+      — se `cloudflare-worker/README.md`, trin 1-6. Uden dette virker
+      Google Sheet-opdateringer stadig, men kun ved manuel kørsel af
+      `sync_events.py` eller manuel "Run workflow" i GitHub Actions
 - [ ] Bekræft DNS er slået igennem (`larsnagelalbertsen.dk` skal give
       HTTP 200, ikke DNS-fejl)
-- [ ] Forbinde `sync_events.py` til et rigtigt Google Sheet
-- [ ] Overvej en GitHub Action på en tidsplan, der kører
-      `sync_events.py` og committer `events.json` automatisk
 - [ ] Billeder i `images/` er fra prototypen — bekræft med Lars om de
       skal bruges i den endelige version, eller om der kommer nye
 - [ ] Bekræft booking-mail i footer er den rigtige

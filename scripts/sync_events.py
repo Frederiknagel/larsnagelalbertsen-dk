@@ -7,8 +7,10 @@ konverterer den til events.json, som website'et viser via script.js.
 
 Sådan sætter du Google Sheet'et op (gør dette én gang):
   1. Opret et ark med disse kolonner i første række (præcis disse navne):
-     date | time | venue | city | title | link
+     date | time | venue | city | title | project | link
   2. date skal skrives som YYYY-MM-DD, fx 2026-09-12
+     project er valgfri — skriv fx "STGYE" for Stan Gets In Your Eyes-
+     koncerter, eller lad feltet stå tomt for løsere/frilance-gigs
   3. Filer -> Del -> Publicer til web -> vælg det relevante ark
      -> vælg format "Kommasepareret værdier (.csv)" -> Udgiv
   4. Kopiér den genererede URL og sæt den i .env som GOOGLE_SHEET_CSV_URL
@@ -42,13 +44,20 @@ SHEET_CSV_URL = os.environ.get("GOOGLE_SHEET_CSV_URL")
 
 # Kolonner vi forventer fra arket, og hvordan de skal hedde i JSON-outputtet.
 # (Samme navne her, men adskilt så det er nemt at ændre senere.)
-EXPECTED_COLUMNS = ["date", "time", "venue", "city", "title", "link"]
+EXPECTED_COLUMNS = ["date", "time", "venue", "city", "title", "project", "link"]
 
 
 def fetch_sheet_csv(url: str) -> str:
     """Henter det publicerede Google Sheet som rå CSV-tekst."""
     response = requests.get(url, timeout=10)
     response.raise_for_status()  # kaster en fejl hvis fx URL'en er forkert (404 osv.)
+
+    # Googles CSV-endpoint sender ikke altid "charset=utf-8" i sin
+    # Content-Type-header. Uden det gætter requests på "ISO-8859-1"
+    # (HTTP-standardens fallback for text/*), selvom body rent faktisk
+    # er UTF-8 — det giver mojibake på æøå (fx "Orø" bliver "OrÃ¸").
+    # Vi tvinger derfor UTF-8 eksplicit i stedet for at stole på gættet.
+    response.encoding = "utf-8"
     return response.text
 
 

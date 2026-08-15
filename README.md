@@ -31,8 +31,10 @@ python3 -m http.server 8000
 ## Opdatér koncertlisten fra Google Sheets
 
 1. Opret et Google Sheet med kolonnerne (præcis disse navne i første række):
-   `date | time | venue | city | title | link`
+   `date | time | venue | city | title | project | link`
    - `date` skal være `YYYY-MM-DD`, fx `2026-09-12`
+   - `project` er valgfri — skriv `STGYE` for Stan Gets In Your Eyes,
+     eller lad stå tomt for løsere/frilance-gigs
 2. **Filer → Del → Publicer til web** → vælg arket → format **CSV** → Udgiv
 3. Kopiér den genererede URL
 4. `cp .env.sample .env` og indsæt URL'en i `GOOGLE_SHEET_CSV_URL`
