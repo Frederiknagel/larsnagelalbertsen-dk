@@ -80,12 +80,16 @@ html, body {
 .profile-photo {
   flex: 0 0 340px;
   max-width: 340px;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: var(--radius);
 }
 .profile-photo img {
   display: block;
   width: 100%;
-  height: auto;
-  border-radius: var(--radius);
+  height: 100%;
+  object-fit: cover;
+  object-position: 58% 22%;
   filter: grayscale(15%);
 }
 .profile-text {
@@ -237,6 +241,44 @@ main {
 @media (max-width: 560px) {
   .gallery { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* --- lightbox (klik-for-at-forstørre galleribilleder) --- */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 12, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 100;
+  padding: 2rem;
+}
+.lightbox-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.lightbox-image {
+  max-width: 92vw;
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: var(--radius);
+}
+.lightbox-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--paper);
+  font-size: 2.5rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+}
+.lightbox-close:hover { color: var(--on-dark-dim); }
 
 .spotify-embed {
   border-radius: var(--radius);
