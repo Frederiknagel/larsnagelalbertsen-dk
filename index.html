@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stan Gets In Your Eyes · Jazzband</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-photo">
+      <img src="images/full-band-class-foto.jpg" alt="Stan Gets In Your Eyes — bandfoto">
+    </div>
+    <h1 class="hero-title">Stan Gets<br>In Your Eyes</h1>
+    <p class="hero-tagline">Danmarks ældste Bossa Nova-orkester — debuterede ved Copenhagen Jazzfestival i 1986, og er mere aktuelle end nogensinde.</p>
+    <nav class="social-links" aria-label="Sociale medier">
+      <a href="https://www.instagram.com/lars_stan_albersen/" target="_blank" rel="noopener">Instagram</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://www.facebook.com/profile.php?id=61558845957687" target="_blank" rel="noopener">Facebook</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://open.spotify.com/artist/53Dsjyzh0SWKxuFf1CqgU6" target="_blank" rel="noopener">Spotify</a>
+    </nav>
+    <a class="hero-cta" href="#koncerter">se kommende koncerter ↓</a>
+  </header>
+
+  <main>
+    <section class="section" id="musik">
+      <h2 class="section-title">Musik</h2>
+      <p class="section-intro">Lyt med på Spotify.</p>
+
+      <div class="spotify-embed">
+        <iframe
+          title="Spotify afspiller — Stan Gets In Your Eyes"
+          src="https://open.spotify.com/embed/artist/53Dsjyzh0SWKxuFf1CqgU6"
+          width="100%" height="352" frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy">
+        </iframe>
+      </div>
+    </section>
+
+    <section class="section" id="billeder">
+      <h2 class="section-title">Billeder</h2>
+      <p class="section-intro">Fra scenen og bagom.</p>
+
+      <div class="gallery">
+        <img src="images/sax-lars.jpg" alt="Lars Albertsen spiller saxofon" loading="lazy">
+        <img src="images/ulrik-guitar.jpg" alt="Ulrik Christiansen spiller guitar" loading="lazy">
+        <img src="images/full-band.jpg" alt="Bandet spiller udendørs" loading="lazy">
+        <img src="images/bartof-vibe.jpg" alt="Stemningsbillede fra Bartof" loading="lazy">
+        <img src="images/two-in-one-faces.jpg" alt="Kunstnerisk dobbelteksponeret portræt" loading="lazy">
+        <img src="images/sax-vibe.jpg" alt="Instrumenter og Still Stan-albummet" loading="lazy">
+      </div>
+    </section>
+
+    <section class="section" id="koncerter">
+      <h2 class="section-title">Kommende koncerter</h2>
+      <p class="section-intro">Opdateres automatisk fra koncertlisten — se <a href="README.md">README</a> for hvordan.</p>
+
+      <ul id="events-list" class="events-list">
+        <li class="events-loading">henter koncerter…</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Booking &amp; kontakt: <a href="mailto:lars.albertsen@gmail.com">lars.albertsen@gmail.com</a></p>
+    <p class="footer-note">prototype bygget af Frederik 🎷</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

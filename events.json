@@ -1,0 +1,26 @@
+[
+  {
+    "date": "2026-09-12",
+    "time": "20:00",
+    "venue": "Jazzhus Montmartre",
+    "city": "København",
+    "title": "Stan Gets In Your Eyes",
+    "link": "https://example.dk/billetter/montmartre-sep"
+  },
+  {
+    "date": "2026-10-03",
+    "time": "19:30",
+    "venue": "Bygningen",
+    "city": "Vordingborg",
+    "title": "",
+    "link": ""
+  },
+  {
+    "date": "2026-11-21",
+    "time": "21:00",
+    "venue": "Alexandra",
+    "city": "København",
+    "title": "Efterårskoncert",
+    "link": "https://example.dk/billetter/alexandra-nov"
+  }
+]
