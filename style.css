@@ -242,6 +242,34 @@ main {
   .gallery { grid-template-columns: repeat(2, 1fr); }
 }
 
+/* --- masonry-variant (bruges på Historien — bevarer billedernes
+   naturlige højde/format, i stedet for at beskære til ensartede
+   bokse. Passer bedre til en blandet samling af fotos, avisudklip og
+   koncertprogrammer, hvor beskæring ville skjule indhold) --- */
+.gallery--masonry {
+  display: block;
+  column-count: 3;
+  column-gap: 0.75rem;
+}
+.gallery--masonry img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 0.75rem;
+  break-inside: avoid;
+  border-radius: var(--radius);
+  filter: grayscale(15%);
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.gallery--masonry img:hover {
+  transform: translateY(-3px);
+  filter: grayscale(0%);
+}
+
+@media (max-width: 560px) {
+  .gallery--masonry { column-count: 2; }
+}
+
 /* --- lightbox (klik-for-at-forstørre galleribilleder) --- */
 .lightbox-overlay {
   position: fixed;

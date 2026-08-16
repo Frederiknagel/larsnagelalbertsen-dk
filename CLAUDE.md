@@ -1,6 +1,6 @@
 # larsnagelalbertsen.dk
 
-Hjemmeside for saxofonisten **Lars Nagel Albertsen**. Bygget af hans søn
+Hjemmeside for saxofonisten **Lars Stan Albertsen**. Bygget af hans søn
 Frederik. Domænet er hans navn — sitet skal handle om *ham*, ikke kun
 om ét projekt.
 
@@ -17,7 +17,7 @@ sammenhænge, uden at det nødvendigvis er navngivne, faste projekter.
 Skal være **lige så simpelt og redaktionelt som albertewinding.dk**
 — ikke bare samme farve/font som vi lavede tidligere, men samme
 **layout**:
-- Topnavigation: **"LARS NAGEL ALBERTSEN"** (bold versaler, wordmark
+- Topnavigation: **"LARS STAN ALBERTSEN"** (bold versaler, wordmark
   i toppen) — med en **fane ved siden af** der linker videre til
   **"STAN GETS IN YOUR EYES"** (undersiden)
 - To-kolonne sektion: portræt af Lars til venstre, kort bio-tekst til
@@ -106,15 +106,16 @@ sitet (kun for `sync_events.py`, se `README.md`).
   se ikke det som skabelon her)
 - Custom domain: `larsnagelalbertsen.dk`, DNS styret af Cloudflare
   (nameservere sat hos registrar dns.services)
-- DNS-status ved sidste tjek: afventer nameserver-propagering fra
-  registrar (kan tage op til 24 timer fra domænekøb)
+- DNS-status: nameservere var faktisk aldrig sat korrekt hos
+  registrar (dns.services) — rettet nu, afventer ny propagering
+  (op til 24 timer)
 
 ## Næste skridt / kendt ufærdigt
 
 - [x] Byg den nye forside (`/`) — to-kolonne hero + samlet koncertliste
 - [x] Flyt den eksisterende `stan-gets-in-your-eyes`-prototype ind som
       `/stan-gets-in-your-eyes/`
-- [x] Byg topnavigation med wordmark + faner (STGYE + Gennem tiden)
+- [x] Byg topnavigation med wordmark + faner (STGYE + Historien)
 - [x] Tilføj `project`-felt til `events.json` og vis det som mærke på
       event-kortene
 - [x] Skriv Lars' bio-tekst til forsiden
