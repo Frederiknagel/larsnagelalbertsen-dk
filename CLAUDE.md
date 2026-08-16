@@ -11,15 +11,13 @@ Lars' primære, faste projekt er bandet **Stan Gets In Your Eyes**
 Jazzfestival 1986. Men han spiller også med andre bands/i andre
 sammenhænge, uden at det nødvendigvis er navngivne, faste projekter.
 
-**To sider, tydeligt forskellige formål:**
+**Fire sider, tydeligt forskellige formål, delt topnavigation:**
+`LARS STAN ALBERTSEN` (wordmark) · `Stan Gets In Your Eyes` ·
+`Historien` · `Nyheder`
 
 ### `/` — forsiden (Lars som hub)
 Skal være **lige så simpelt og redaktionelt som albertewinding.dk**
-— ikke bare samme farve/font som vi lavede tidligere, men samme
-**layout**:
-- Topnavigation: **"LARS STAN ALBERTSEN"** (bold versaler, wordmark
-  i toppen) — med en **fane ved siden af** der linker videre til
-  **"STAN GETS IN YOUR EYES"** (undersiden)
+— ikke bare samme farve/font, men samme **layout**:
 - To-kolonne sektion: portræt af Lars til venstre, kort bio-tekst til
   højre (præcis som Albertes side)
 - **Koncerter**-sektion nedenunder — én samlet liste, ALLE Lars'
@@ -27,17 +25,26 @@ Skal være **lige så simpelt og redaktionelt som albertewinding.dk**
 - Ingen Spotify-embed, intet billedgalleri her — det hører til på
   STGYE-siden
 
-### `/stan-gets-in-your-eyes` — bandsiden
-Beholder den rigere stil, vi allerede har bygget i prototypen:
+### `/stan-gets-in-your-eyes/` — bandsiden
 - Hero-sektion, infotekst om bandet
-- Billedgalleri
+- Billedgalleri (ensartet grid — nutidige, kuraterede fotos)
 - Spotify-embed
 - **Ingen egen koncertliste** — koncerter vises kun samlet på
-  forsiden, denne side handler om musik/historie/billeder
+  forsiden
 
-Det meste af den eksisterende `stan-gets-in-your-eyes`-prototype
-(Spotify-embed, galleri, monokrome tema fra albertewinding.dk) kan
-genbruges næsten 1:1 som denne underside.
+### `/historien/` — arkiv
+- Mindetekst om en tidligere æra af bandet, inkl. Lars Bo Enselmann
+  (afdød tidligere bandmedlem — tekst skrevet med varsomhed, kun
+  bekræftede grundfakta, ikke opdigtet biografisk indhold)
+- Billedgalleri i **masonry-layout** (`.gallery--masonry`, ren CSS
+  `columns`) — bevarer billedernes naturlige format i stedet for at
+  beskære til ensartede bokse. Vigtigt her specifikt, fordi samlingen
+  er en blandet pose (fotos, avisudklip, koncertprogrammer) hvor
+  beskæring ville skjule indhold (fx gøre et program ulæseligt)
+
+### `/nyheder/` — nyhedsopslag
+- Lars skriver selv opslag i et Google Doc (se "Nyhedsdata" nedenfor)
+- Viser nyeste øverst, ingen egen koncertliste eller galleri
 
 ## Tech stack
 
@@ -78,7 +85,8 @@ selv kan tilføje koncerter uden at røre kode:
   (trigges via `workflow_dispatch`, ikke en tidsplan) + en Cloudflare
   Worker (`cloudflare-worker/trigger-sync.js`) som fungerer som et
   "opdater nu"-link i selve Google Sheet'et — se
-  `cloudflare-worker/README.md` for fuld opsætning
+  `cloudflare-worker/README.md` for fuld opsætning. Samme knap
+  opdaterer også nyheder (se nedenfor) i samme kørsel.
 - **Nyt felt**: et valgfrit `project`-felt per event (fx
   `"project": "STGYE"`), så et event kan mærkes med hvilket
   band/projekt det hører til. Udelades feltet, er det bare en
@@ -87,6 +95,36 @@ selv kan tilføje koncerter uden at røre kode:
   (STGYE-siden viser ikke sin egen koncertliste — se sitestruktur
   ovenfor — så feltet bruges udelukkende til visning, ikke filtrering
   mellem sider.)
+
+## Nyhedsdata (`news.json`)
+
+Samme mønster som koncerter, men fra et **Google Doc** i stedet for et
+Sheet (fri tekst passer bedre til nyhedsopslag end regneark-celler):
+
+- `scripts/sync_news.py` henter et **publiceret** Google Doc (som
+  webside/HTML), parser det med BeautifulSoup, og skriver `news.json`
+- Konvention Lars skal følge: hvert opslag starter med Docs-stilen
+  **"Overskrift 2"** (titel, evt. med `YYYY-MM-DD —`-præfiks der
+  udtrækkes som dato), efterfulgt af brødtekst indtil næste
+  "Overskrift 2"
+- Kræver `GOOGLE_DOC_HTML_URL` lokalt i `.env` — eller som GitHub
+  repo-secret (samme sted som `GOOGLE_SHEET_CSV_URL`)
+- Håndterer to Google-specifikke kvirks: samme UTF-8-encoding-fælde
+  som Sheets-CSV'en, samt at Docs pakker links ind i
+  `google.com/url?q=...`-redirects, som pakkes ud til det rigtige
+  mål-link (`unwrap_google_redirect()`)
+- Tilladt HTML i indlæg begrænset til en hvidliste (`ALLOWED_TAGS`) —
+  luger Google Docs' egne `<span class="c12">`-styling-rester væk
+- **Billeder i indlæg understøttes** (indsæt direkte i Google Doc'et,
+  HEIC konverteres automatisk af Google ved upload). VIGTIGT: Googles
+  interne billed-URL'er (`docs.google.com/docs-images-rt/...`) har en
+  `cross-origin-resource-policy: same-site`-header, som forhindrer dem
+  i at blive vist indlejret på et andet site — derfor downloader
+  `download_image()` billedet og gemmer det som en rigtig fil i
+  `images/nyheder/` (filnavn = content-hash, så gentagne kørsler ikke
+  skaber dubletter), og `src` skrives om til den lokale sti. GitHub
+  Action'en committer også disse filer, ikke kun `news.json`.
+- **Status: sat op og testet med et rigtigt Google Doc**, inkl. billede
 
 ## Lokal udvikling
 
@@ -127,8 +165,22 @@ sitet (kun for `sync_events.py`, se `README.md`).
       Husk: `GOOGLE_SHEET_CSV_URL`-secret skal være et **repository
       secret**, ikke et environment secret (workflowet definerer ingen
       `environment:`, så kun repo-secrets er synlige for det)
+- [x] Omdøb Gennem tiden → Historien (side + billedmappe + URL)
+- [x] Masonry-galleri på Historien (`.gallery--masonry`, ren CSS)
+- [x] Skift visningsnavn til "Lars Stan Albertsen" overalt (domænet
+      forbliver larsnagelalbertsen.dk)
+- [x] Byg `/nyheder/` — ny fane, `sync_news.py` + Google Doc-flow,
+      samme "opdater nu"-knap som koncerter (én kørsel opdaterer begge)
+- [x] Google Doc til nyheder oprettet, publiceret, testet mod
+      `sync_news.py` — inkl. billede-download (`images/nyheder/`)
+- [ ] Tilføj `GOOGLE_DOC_HTML_URL` som **repository secret** på GitHub
+      (samme sted som `GOOGLE_SHEET_CSV_URL`) — ellers virker
+      "opdater nu"-knappen ikke for nyheder i produktion endnu
+- [ ] Erstat test-indlægget i news.json/Doc'et med et rigtigt
+      nyhedsopslag, når Lars er klar
 - [ ] Bekræft DNS er slået igennem (`larsnagelalbertsen.dk` skal give
-      HTTP 200, ikke DNS-fejl)
+      HTTP 200, ikke DNS-fejl) — nameservere blev rettet hos
+      registrar, afventer ny propagering
 - [ ] Billeder i `images/` er fra prototypen — bekræft med Lars om de
       skal bruges i den endelige version, eller om der kommer nye
 - [ ] Bekræft booking-mail i footer er den rigtige

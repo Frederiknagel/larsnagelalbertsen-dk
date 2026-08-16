@@ -1,7 +1,9 @@
-# Opsætning: "Opdater koncerter"-linket
+# Opsætning: "Opdater nu"-linket
 
-Dette er den fulde kæde: **Google Sheet-link → Cloudflare Worker →
-GitHub Action → `events.json` opdateret → Cloudflare Pages deployer**.
+Dette er den fulde kæde: **Google Sheet/Doc-link → Cloudflare Worker →
+GitHub Action → `events.json`/`news.json` opdateret → Cloudflare Pages
+deployer**. Samme knap/link opdaterer både koncerter og nyheder i én
+kørsel.
 
 ## 1. GitHub Personal Access Token
 
@@ -15,15 +17,18 @@ Opret en **fine-grained** token, scoped kun til dette repo:
    **Read and write**
 6. Generate token → **kopiér den med det samme** (den vises kun én gang)
 
-## 2. Repo-secret til Google Sheet-URL'en
+## 2. Repo-secrets til Google Sheet + Doc-URL'erne
 
-GitHub Action'en (`sync-events.yml`) skal kende jeres CSV-URL:
+GitHub Action'en (`sync-events.yml`) skal kende begge URL'er. **Vigtigt:**
+de skal være **repository secrets**, ikke "Environment secrets" (workflowet
+definerer ingen `environment:`, så kun repo-secrets er synlige for det).
 
 1. Gå til `github.com/Frederiknagel/larsnagelalbertsen-dk` → **Settings →
-   Secrets and variables → Actions → New repository secret**
-2. Name: `GOOGLE_SHEET_CSV_URL`
-3. Value: jeres publicerede CSV-link (samme som i lokal `.env`)
-4. Add secret
+   Secrets and variables → Actions** → fanen **"Secrets"** →
+   **"Repository secrets"** → **New repository secret**
+2. Tilføj `GOOGLE_SHEET_CSV_URL` = jeres publicerede CSV-link
+3. Tilføj `GOOGLE_DOC_HTML_URL` = jeres publicerede Google Doc-link
+   (webside-format, ikke CSV)
 
 ## 3. Opret Cloudflare Worker
 
@@ -55,14 +60,16 @@ Hvis du satte `TRIGGER_KEY`, skal linket være:
 https://larsnagelalbertsen-sync-trigger.<...>.workers.dev/?key=DIN_HEMMELIGE_KODE
 ```
 
-Indsæt linket i en celle i Google Sheet'et (fx en note øverst: **"Klik
-her for at opdatere hjemmesiden med det samme"**), eller tegn en rigtig
-knap/figur i arket og sæt linket som dens hyperlink.
+**Brug samme link i både Sheet'et og Doc'et** — det er den samme knap,
+der opdaterer alt. Sæt det som en **tegnet figur/knap med link** (ikke
+tekst-i-celle — det kræver et ekstra, upålideligt klik på en pop-up-chip
+i Google Sheets/Docs for rent faktisk at navigere).
 
 ## 6. Test det
 
 Klik på linket → du bør se en bekræftelsesbesked i browseren
-("✅ Koncertlisten opdateres nu..."). Tjek derefter:
+("✅ Koncertlisten opdateres nu — der kan gå op til 10 minutter...").
+Tjek derefter:
 - `github.com/Frederiknagel/larsnagelalbertsen-dk/actions` — en ny
-  kørsel af "Sync koncerter fra Google Sheet" skulle dukke op
-- Efter ca. et halvt minut: den live side skulle vise ændringen
+  kørsel skulle dukke op
+- Efter et par minutter: den live side skulle vise ændringen

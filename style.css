@@ -270,6 +270,56 @@ main {
   .gallery--masonry { column-count: 2; }
 }
 
+/* --- nyheder --- */
+.news-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.news-loading, .news-empty {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.news-post {
+  padding: 2rem 0;
+  border-top: 1px solid var(--line);
+}
+.news-post:first-child { border-top: none; padding-top: 0; }
+
+.news-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0 0 0.35rem;
+}
+
+.news-date {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 0 0 1rem;
+}
+
+.news-body {
+  color: var(--body);
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+.news-body p { margin: 0 0 1rem; }
+.news-body p:last-child { margin-bottom: 0; }
+.news-body a { color: var(--charcoal); }
+.news-body a:hover { color: var(--ink); }
+.news-body ul, .news-body ol { margin: 0 0 1rem; padding-left: 1.25rem; }
+.news-body img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  margin: 0 0 1rem;
+}
+
 /* --- lightbox (klik-for-at-forstørre galleribilleder) --- */
 .lightbox-overlay {
   position: fixed;

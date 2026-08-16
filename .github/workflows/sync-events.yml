@@ -1,8 +1,13 @@
-name: Sync koncerter fra Google Sheet
+name: Sync koncerter og nyheder fra Google
 
 # Trigges on-demand via GitHub's API (fra Cloudflare Worker'en, som
-# "opdater"-linket i Google Sheet peger på) — ingen tidsplan/polling.
+# "opdater"-linket i Google Sheet/Doc peger på) — ingen tidsplan/polling.
 # Kan også køres manuelt fra GitHub -> Actions-fanen -> "Run workflow".
+#
+# Filnavnet (sync-events.yml) er bevidst IKKE ændret til noget mere
+# generelt, selvom workflowet nu også synkroniserer nyheder — Cloudflare
+# Worker'en (cloudflare-worker/trigger-sync.js) refererer til filnavnet
+# direkte, og en omdøbning ville kræve en ny manuel redeploy af Workeren.
 on:
   workflow_dispatch: {}
 
@@ -24,15 +29,20 @@ jobs:
       - name: Installér afhængigheder
         run: pip install -r scripts/requirements.txt
 
-      - name: Kør sync-script
+      - name: Kør koncert-sync
         env:
           GOOGLE_SHEET_CSV_URL: ${{ secrets.GOOGLE_SHEET_CSV_URL }}
         run: python scripts/sync_events.py
 
-      - name: Commit og push, hvis events.json er ændret
+      - name: Kør nyheds-sync
+        env:
+          GOOGLE_DOC_HTML_URL: ${{ secrets.GOOGLE_DOC_HTML_URL }}
+        run: python scripts/sync_news.py
+
+      - name: Commit og push, hvis events.json/news.json/billeder er ændret
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add events.json
-          git diff --cached --quiet || git commit -m "Auto-opdater koncerter fra Google Sheet"
+          git add events.json news.json images/nyheder/
+          git diff --cached --quiet || git commit -m "Auto-opdater koncerter/nyheder fra Google"
           git push
