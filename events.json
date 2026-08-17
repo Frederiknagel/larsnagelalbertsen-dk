@@ -1,38 +1,20 @@
 [
   {
-    "date": "2026-09-12",
+    "date": "2026-08-21",
     "time": "20:00",
-    "venue": "Cafe Bings",
-    "city": "Orø",
-    "title": "",
-    "project": "STGYE",
-    "link": ""
+    "venue": "Tisvilde Højskole",
+    "city": "Tisvildeleje",
+    "title": "Karoline Munksnæs trio",
+    "project": "Karoline Munksnæs, Morten Rolskov, Lars Stan Albertsen",
+    "link": "https://tisvildehoejskole.dk/en/"
   },
   {
-    "date": "2026-10-03",
-    "time": "19:30",
-    "venue": "Bygningen",
-    "city": "Vordingborg",
-    "title": "",
-    "project": "STGYE",
-    "link": ""
-  },
-  {
-    "date": "2026-10-18",
-    "time": "20:30",
-    "venue": "Bageren",
-    "city": "Tisvilde",
-    "title": "",
-    "project": "Frederik & Lars",
-    "link": ""
-  },
-  {
-    "date": "2026-10-21",
-    "time": "13:30",
-    "venue": "Sundholmsvej 52",
-    "city": "KBH S",
-    "title": "",
-    "project": "Lars Stan solo",
-    "link": ""
+    "date": "2026-08-27",
+    "time": "18:00",
+    "venue": "Havesalonen",
+    "city": "Tisvildeleje",
+    "title": "Fullmoon Party",
+    "project": "Stan Gets in Your Eyes duo",
+    "link": "https://havesalonen.dk/"
   }
 ]
