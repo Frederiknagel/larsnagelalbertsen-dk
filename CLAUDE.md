@@ -134,6 +134,47 @@ python3 -m http.server 8000
 Åbn `http://localhost:8000`. Ingen installation nødvendig for selve
 sitet (kun for `sync_events.py`, se `README.md`).
 
+## SEO
+
+Domænet var i lang tid utilgængeligt (se "DNS-status" nedenfor), så
+SEO-arbejdet startede først, da det gik live. Implementeret på alle
+fire sider:
+
+- Unikke `<meta name="description">` + Open Graph/Twitter-tags per side
+- `<link rel="canonical">` peger altid på `larsnagelalbertsen.dk`
+  (vigtigt: sitet er også tilgængeligt på `*.workers.dev` — canonical
+  forhindrer duplicate-content-forvirring hos Google)
+- JSON-LD structured data: `Person` (forsiden) med `alternateName` for
+  at dække både "Lars Nagel Albertsen" (rigtige efternavn, matcher
+  domænet) og "Lars Stan Albertsen" (visningsnavnet på selve siden);
+  `MusicGroup` (STGYE-siden) med genre/stiftelsesår/`sameAs`-links til
+  Spotify/Instagram/Facebook
+- Skjult (`.visually-hidden`) `<h1>` på forsiden med "Lars Nagel
+  Albertsen" — forsiden havde ingen `<h1>` overhovedet før, og det
+  synlige navn er "Stan"-varianten, så den skjulte h1 dækker den
+  anden navnevariant uden at ændre det visuelle design
+  (`.visually-hidden` er en standard tilgængeligheds-klasse, se
+  `style.css`)
+- Lille disambiguerings-sætning på STGYE-siden ("ikke at forveksle med
+  Stan Getz") — både for besøgende og for at fange den søgetrafik
+- `robots.txt` + `sitemap.xml` i roden
+- `favicon.svg`
+
+**Bevidst navnestrategi**: det *viste* navn på siden er "Lars Stan
+Albertsen" (Lars' eget ønske), men "Lars Nagel Albertsen" (det
+egentlige efternavn, matcher domænet) er bevidst vævet ind i
+meta-beskrivelser, alt-tekster og strukturerede data, så begge
+navnevarianter er søgbare.
+
+**Ikke gjort (kræver Lars/Frederik's egen handling, ikke noget jeg kan
+klare fra kode)**:
+- [ ] Opret Google Search Console og indsend `sitemap.xml`
+- [ ] Opdatér Instagram/Facebook-bio til at linke til
+      larsnagelalbertsen.dk (backlinks fra sociale profiler tæller
+      mere for placering end noget teknisk på selve siden)
+- [ ] Overvej at få jazzklubber/festivaller, der nævner bandet, til at
+      linke til sitet
+
 ## Deploy
 
 **Cloudflare Pages**, forbundet direkte til dette GitHub-repo:
@@ -144,9 +185,14 @@ sitet (kun for `sync_events.py`, se `README.md`).
   se ikke det som skabelon her)
 - Custom domain: `larsnagelalbertsen.dk`, DNS styret af Cloudflare
   (nameservere sat hos registrar dns.services)
-- DNS-status: nameservere var faktisk aldrig sat korrekt hos
-  registrar (dns.services) — rettet nu, afventer ny propagering
-  (op til 24 timer)
+- **DNS-status: LIVE.** Root cause for den lange forsinkelse var
+  hverken nameservere, DNSSEC eller det (irrelevante, ubrugte) "DNS
+  Hotel"-produkt hos dns.services — det var en obligatorisk
+  **MitID-identitetsbekræftelse hos Punktum dk (DK Hostmaster)**,
+  påkrævet inden for 4 dage efter registrering af ethvert nyt
+  `.dk`-domæne. Domænet stod som "Reserved" indtil den blev
+  gennemført. Værd at huske, hvis domænet nogensinde skal
+  fornys/overføres igen.
 
 ## Næste skridt / kendt ufærdigt
 
@@ -173,14 +219,14 @@ sitet (kun for `sync_events.py`, se `README.md`).
       samme "opdater nu"-knap som koncerter (én kørsel opdaterer begge)
 - [x] Google Doc til nyheder oprettet, publiceret, testet mod
       `sync_news.py` — inkl. billede-download (`images/nyheder/`)
-- [ ] Tilføj `GOOGLE_DOC_HTML_URL` som **repository secret** på GitHub
-      (samme sted som `GOOGLE_SHEET_CSV_URL`) — ellers virker
-      "opdater nu"-knappen ikke for nyheder i produktion endnu
+- [x] `GOOGLE_DOC_HTML_URL` tilføjet som repository secret på GitHub
+- [x] **DNS/domæne er live** — se "DNS-status" ovenfor for root cause
+      (MitID-aktivering hos Punktum dk, ikke et teknisk fejl)
+- [x] Grundlæggende SEO (meta/OG-tags, JSON-LD, sitemap, robots.txt) —
+      se "SEO"-sektionen ovenfor for detaljer og resterende manuelle
+      trin (Search Console, backlinks)
 - [ ] Erstat test-indlægget i news.json/Doc'et med et rigtigt
       nyhedsopslag, når Lars er klar
-- [ ] Bekræft DNS er slået igennem (`larsnagelalbertsen.dk` skal give
-      HTTP 200, ikke DNS-fejl) — nameservere blev rettet hos
-      registrar, afventer ny propagering
 - [ ] Billeder i `images/` er fra prototypen — bekræft med Lars om de
       skal bruges i den endelige version, eller om der kommer nye
 - [ ] Bekræft booking-mail i footer er den rigtige

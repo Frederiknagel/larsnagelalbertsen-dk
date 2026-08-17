@@ -18,6 +18,21 @@
 
 * { box-sizing: border-box; }
 
+/* Skjuler visuelt, men holder indhold synligt for skærmlæsere og
+   søgemaskiner — bruges til fx en h1, der ikke skal fylde noget
+   visuelt, men stadig give siden en korrekt semantisk hovedoverskrift. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 html, body {
   margin: 0;
   padding: 0;
