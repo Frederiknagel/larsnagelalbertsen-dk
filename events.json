@@ -3,7 +3,7 @@
     "date": "2026-08-21",
     "time": "20:00",
     "venue": "Tisvilde Højskole",
-    "city": "Tisvildeleje",
+    "city": "Julgårdsvek 1, Tisvildeleje",
     "title": "Karoline Munksnæs trio",
     "project": "Karoline Munksnæs, Morten Rolskov, Lars Stan Albertsen",
     "link": "https://tisvildehoejskole.dk/en/"
@@ -12,9 +12,63 @@
     "date": "2026-08-27",
     "time": "18:00",
     "venue": "Havesalonen",
-    "city": "Tisvildeleje",
+    "city": "Olskærvej 1, Tisvildeleje",
     "title": "Fullmoon Party",
     "project": "Stan Gets in Your Eyes duo",
     "link": "https://havesalonen.dk/"
+  },
+  {
+    "date": "2026-08-28",
+    "time": "16:00",
+    "venue": "Haldor Topsøe",
+    "city": "Kgs. Lyngby",
+    "title": "Fredagsbar",
+    "project": "Stan Gets in Your Eyes duo",
+    "link": "https://www.topsoe.com/"
+  },
+  {
+    "date": "2026-08-29",
+    "time": "15:00",
+    "venue": "Privat arrangement",
+    "city": "",
+    "title": "",
+    "project": "",
+    "link": "Ikke offentligt"
+  },
+  {
+    "date": "2026-09-16",
+    "time": "16:30",
+    "venue": "Kammeradvokaten Poul Schmith",
+    "city": "Kalvebod Brygge, København",
+    "title": "Busines dinner",
+    "project": "Stan Gets in Your Eyes Kvartet",
+    "link": "Ikke offentligt"
+  },
+  {
+    "date": "2026-10-03",
+    "time": "11:00",
+    "venue": "Herlev Bymidte",
+    "city": "Herlev Torv 2",
+    "title": "Lyserød Lørdag",
+    "project": "Lars Stan Albertsen solo",
+    "link": "https://herlevbymidtecenter.dk/"
+  },
+  {
+    "date": "2026-10-22",
+    "time": "20:00",
+    "venue": "Kong Hans Hotel",
+    "city": "Åboulevarden 29, Frederiksberg",
+    "title": "Torsdagsmusik",
+    "project": "Stan Gets in Your Eyes Kvartet",
+    "link": "https://www.brochner-hotels.dk/vores-locations/hotel-hans"
+  },
+  {
+    "date": "2026-10-31",
+    "time": "15:00",
+    "venue": "Herlev Bymidte",
+    "city": "Herlev Torv 2",
+    "title": "Halloween wellness",
+    "project": "Stan Gets in Your Eyes Duo",
+    "link": "https://herlevbymidtecenter.dk/"
   }
 ]
