@@ -284,6 +284,10 @@ main {
   display: block;
   column-count: 3;
   column-gap: 0.75rem;
+  /* column-fill: auto kræver en fast/begrænset højde for at virke —
+     uden den propper browseren alt ind i én kolonne. Beholder derfor
+     standard "balance"-opførsel; læserækkefølgen på tværs af kolonner
+     er derfor ikke 100% garanteret, men layoutet virker korrekt. */
 }
 .gallery--masonry img {
   width: 100%;
@@ -298,6 +302,43 @@ main {
 .gallery--masonry img:hover {
   transform: translateY(-3px);
   filter: grayscale(0%);
+}
+
+/* Tekstkort blandet ind mellem billederne i masonry-gridet — som
+   scrapbook-sedler mellem fotografierne. Let asymmetrisk, håndtegnet
+   kant-radius og en svag rotation for det legende "krøllede" udtryk,
+   men selve teksten holdes helt almindeligt sat for læsbarhedens skyld. */
+.gallery-note {
+  break-inside: avoid;
+  margin-bottom: 0.75rem;
+  padding: 1.25rem 1.4rem;
+  border: 2px solid var(--ink);
+  background: var(--bg);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--body);
+}
+.gallery-note p { margin: 0 0 0.85rem; }
+.gallery-note p:last-child { margin-bottom: 0; }
+.gallery-note .gallery-note-quote {
+  font-style: italic;
+  color: var(--charcoal);
+}
+.gallery-note .gallery-note-signature {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+.gallery-note--a {
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  transform: rotate(-0.6deg);
+}
+.gallery-note--b {
+  border-radius: 15px 225px 15px 255px / 225px 15px 255px 15px;
+  transform: rotate(0.5deg);
+}
+.gallery-note--c {
+  border-radius: 180px 20px 180px 20px / 20px 180px 20px 180px;
+  transform: rotate(-0.3deg);
 }
 
 @media (max-width: 560px) {
