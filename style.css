@@ -305,14 +305,14 @@ main {
 }
 
 /* Tekstkort blandet ind mellem billederne i masonry-gridet — som
-   scrapbook-sedler mellem fotografierne. Let asymmetrisk, håndtegnet
-   kant-radius og en svag rotation for det legende "krøllede" udtryk,
-   men selve teksten holdes helt almindeligt sat for læsbarhedens skyld. */
+   scrapbook-sedler mellem fotografierne. Tynd, dæmpet kant og enkle
+   runde hjørner (ikke skæv/håndtegnet — det var for larmende). */
 .gallery-note {
   break-inside: avoid;
   margin-bottom: 0.75rem;
   padding: 1.25rem 1.4rem;
-  border: 2px solid var(--ink);
+  border: 1px solid rgba(23, 24, 31, 0.18); /* tynd, let transparent --ink */
+  border-radius: var(--radius);
   background: var(--bg);
   font-size: 0.9rem;
   line-height: 1.65;
@@ -327,18 +327,6 @@ main {
 .gallery-note .gallery-note-signature {
   color: var(--muted);
   font-size: 0.82rem;
-}
-.gallery-note--a {
-  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-  transform: rotate(-0.6deg);
-}
-.gallery-note--b {
-  border-radius: 15px 225px 15px 255px / 225px 15px 255px 15px;
-  transform: rotate(0.5deg);
-}
-.gallery-note--c {
-  border-radius: 180px 20px 180px 20px / 20px 180px 20px 180px;
-  transform: rotate(-0.3deg);
 }
 
 @media (max-width: 560px) {
