@@ -1,4 +1,4 @@
-name: Sync koncerter og nyheder fra Google
+name: Sync koncerter, nyheder og tekster fra Google
 
 # Trigges on-demand via GitHub's API (fra Cloudflare Worker'en, som
 # "opdater"-linket i Google Sheet/Doc peger på) — ingen tidsplan/polling.
@@ -39,10 +39,15 @@ jobs:
           GOOGLE_DOC_HTML_URL: ${{ secrets.GOOGLE_DOC_HTML_URL }}
         run: python scripts/sync_news.py
 
-      - name: Commit og push, hvis events.json/news.json/billeder er ændret
+      - name: Kør tekster-sync
+        env:
+          GOOGLE_TEXTS_DOC_HTML_URL: ${{ secrets.GOOGLE_TEXTS_DOC_HTML_URL }}
+        run: python scripts/sync_texts.py
+
+      - name: Commit og push, hvis data/billeder er ændret
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add events.json news.json images/nyheder/
-          git diff --cached --quiet || git commit -m "Auto-opdater koncerter/nyheder fra Google"
+          git add events.json news.json texts.json images/nyheder/ images/tekster/
+          git diff --cached --quiet || git commit -m "Auto-opdater koncerter/nyheder/tekster fra Google"
           git push

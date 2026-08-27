@@ -1,9 +1,9 @@
 # Opsætning: "Opdater nu"-linket
 
 Dette er den fulde kæde: **Google Sheet/Doc-link → Cloudflare Worker →
-GitHub Action → `events.json`/`news.json` opdateret → Cloudflare Pages
-deployer**. Samme knap/link opdaterer både koncerter og nyheder i én
-kørsel.
+GitHub Action → `events.json`/`news.json`/`texts.json` opdateret →
+Cloudflare Pages deployer**. Samme knap/link opdaterer koncerter,
+nyheder og tekster i én kørsel.
 
 ## 1. GitHub Personal Access Token
 
@@ -19,7 +19,7 @@ Opret en **fine-grained** token, scoped kun til dette repo:
 
 ## 2. Repo-secrets til Google Sheet + Doc-URL'erne
 
-GitHub Action'en (`sync-events.yml`) skal kende begge URL'er. **Vigtigt:**
+GitHub Action'en (`sync-events.yml`) skal kende alle tre URL'er. **Vigtigt:**
 de skal være **repository secrets**, ikke "Environment secrets" (workflowet
 definerer ingen `environment:`, så kun repo-secrets er synlige for det).
 
@@ -27,7 +27,9 @@ definerer ingen `environment:`, så kun repo-secrets er synlige for det).
    Secrets and variables → Actions** → fanen **"Secrets"** →
    **"Repository secrets"** → **New repository secret**
 2. Tilføj `GOOGLE_SHEET_CSV_URL` = jeres publicerede CSV-link
-3. Tilføj `GOOGLE_DOC_HTML_URL` = jeres publicerede Google Doc-link
+3. Tilføj `GOOGLE_DOC_HTML_URL` = jeres publicerede nyheds-Doc-link
+   (webside-format, ikke CSV)
+4. Tilføj `GOOGLE_TEXTS_DOC_HTML_URL` = jeres publicerede tekster-Doc-link
    (webside-format, ikke CSV)
 
 ## 3. Opret Cloudflare Worker
@@ -60,7 +62,7 @@ Hvis du satte `TRIGGER_KEY`, skal linket være:
 https://larsnagelalbertsen-sync-trigger.<...>.workers.dev/?key=DIN_HEMMELIGE_KODE
 ```
 
-**Brug samme link i både Sheet'et og Doc'et** — det er den samme knap,
+**Brug samme link i Sheet'et og begge Docs** — det er den samme knap,
 der opdaterer alt. Sæt det som en **tegnet figur/knap med link** (ikke
 tekst-i-celle — det kræver et ekstra, upålideligt klik på en pop-up-chip
 i Google Sheets/Docs for rent faktisk at navigere).

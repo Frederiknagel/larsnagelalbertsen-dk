@@ -11,9 +11,9 @@ Lars' primære, faste projekt er bandet **Stan Gets In Your Eyes**
 Jazzfestival 1986. Men han spiller også med andre bands/i andre
 sammenhænge, uden at det nødvendigvis er navngivne, faste projekter.
 
-**Fire sider, tydeligt forskellige formål, delt topnavigation:**
+**Fem sider, tydeligt forskellige formål, delt topnavigation:**
 `LARS STAN ALBERTSEN` (wordmark) · `Stan Gets In Your Eyes` ·
-`Historien` · `Nyheder`
+`Historien` · `Nyheder` · `Tekster`
 
 ### `/` — forsiden (Lars som hub)
 Skal være **lige så simpelt og redaktionelt som albertewinding.dk**
@@ -45,6 +45,11 @@ Skal være **lige så simpelt og redaktionelt som albertewinding.dk**
 ### `/nyheder/` — nyhedsopslag
 - Lars skriver selv opslag i et Google Doc (se "Nyhedsdata" nedenfor)
 - Viser nyeste øverst, ingen egen koncertliste eller galleri
+
+### `/tekster/` — tekster/digte
+- Samme mønster og genbrugte CSS/HTML-struktur som `/nyheder/` (se
+  "Tekstdata" nedenfor), bare et separat Google Doc og separat
+  indhold — Lars' egne tekster/digte, ikke nyhedsopdateringer
 
 ## Tech stack
 
@@ -125,6 +130,20 @@ Sheet (fri tekst passer bedre til nyhedsopslag end regneark-celler):
   skaber dubletter), og `src` skrives om til den lokale sti. GitHub
   Action'en committer også disse filer, ikke kun `news.json`.
 - **Status: sat op og testet med et rigtigt Google Doc**, inkl. billede
+
+## Tekstdata (`texts.json`)
+
+**Bogstaveligt talt samme kode som Nyhedsdata ovenfor**, kopieret 1:1
+til `scripts/sync_texts.py` med navne skiftet ud (`GOOGLE_TEXTS_DOC_HTML_URL`,
+`images/tekster/`, `texts.json`). Genbruger også samme CSS-klasser
+(`.news-list`, `.news-post` osv.) i `tekster/index.html` — bevidst
+ikke omdøbt til noget generisk fælles, for at holde de to features
+nemme at ræsonnere om hver for sig, selvom det er lidt duplikeret kode.
+- `texts.js` er en næsten identisk kopi af `news.js` (anden fetch-URL,
+  andet element-id: `#texts-list`)
+- **Status: siden er bygget og virker, men Google Doc'et er tomt**
+  (kun titlen "Hjemmeside - Tekster", intet skrevet med "Overskrift 2"
+  endnu) — Lars mangler at skrive sin første tekst
 
 ## Lokal udvikling
 
@@ -225,8 +244,18 @@ klare fra kode)**:
 - [x] Grundlæggende SEO (meta/OG-tags, JSON-LD, sitemap, robots.txt) —
       se "SEO"-sektionen ovenfor for detaljer og resterende manuelle
       trin (Search Console, backlinks)
-- [ ] Erstat test-indlægget i news.json/Doc'et med et rigtigt
-      nyhedsopslag, når Lars er klar
+- [x] Erstat test-indlægget i news.json/Doc'et med et rigtigt
+      nyhedsopslag — Lars har selv skrevet et rigtigt indlæg
+- [x] Bekræft booking-mail/telefon i footer — rettet til
+      lars_albertsen@hotmail.com + 26 85 34 62 på Lars' anmodning
+- [x] Byg `/tekster/` — femte fane, `sync_texts.py` (kopi af
+      `sync_news.py`), samme "opdater nu"-knap opdaterer nu koncerter/
+      nyheder/tekster i én kørsel
+- [ ] Tilføj `GOOGLE_TEXTS_DOC_HTML_URL` som repository secret på
+      GitHub (samme sted som de to andre) — ellers virker
+      "opdater nu"-knappen ikke for tekster i produktion endnu
+- [ ] Lars mangler at skrive sin første tekst i tekster-Doc'et (kun
+      titlen "Hjemmeside - Tekster" er der lige nu, intet med
+      "Overskrift 2"-stilen endnu, så texts.json er tom)
 - [ ] Billeder i `images/` er fra prototypen — bekræft med Lars om de
       skal bruges i den endelige version, eller om der kommer nye
-- [ ] Bekræft booking-mail i footer er den rigtige
