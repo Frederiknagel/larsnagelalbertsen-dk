@@ -505,6 +505,10 @@ main {
   gap: 1rem;
 }
 
+/* allerede afholdt — bliver stående på listen i 2 måneder (se script.js),
+   men dæmpet, så det er tydeligt at koncerten er overstået */
+.event-card--past { opacity: 0.5; }
+
 .event-date {
   font-family: 'Inter', sans-serif;
   font-weight: 800;

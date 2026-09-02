@@ -86,6 +86,14 @@ selv kan tilføje koncerter uden at røre kode:
   Googles CSV-endpoint ikke altid sender `charset=utf-8` i sin header
 - **Status: sat op og virker** med et rigtigt Google Sheet, delt med
   Lars som redigerings-adgang
+- **Visning (`script.js`)**: `events.json` beholder alt — hele
+  filtreringen sker klient-side ved visning. Kommende koncerter vises
+  først (nærmeste dato øverst), derefter afholdte koncerter fra de
+  seneste **2 måneder** (dæmpet via `.event-card--past`, nyeste først).
+  Ældre end 2 måneder skjules. Lars behøver altså ikke slette gamle
+  rækker i Sheet'et for at holde listen ren. Kun rigtige `http(s)`-links
+  bliver klikbare ("Link →") — Lars skriver fx "Ikke offentligt" for
+  lukkede arrangementer.
 - **Automatisk opdatering**: `.github/workflows/sync-events.yml`
   (trigges via `workflow_dispatch`, ikke en tidsplan) + en Cloudflare
   Worker (`cloudflare-worker/trigger-sync.js`) som fungerer som et
