@@ -251,9 +251,13 @@ klare fra kode)**:
 - [x] Byg `/tekster/` — femte fane, `sync_texts.py` (kopi af
       `sync_news.py`), samme "opdater nu"-knap opdaterer nu koncerter/
       nyheder/tekster i én kørsel
-- [ ] Tilføj `GOOGLE_TEXTS_DOC_HTML_URL` som repository secret på
-      GitHub (samme sted som de to andre) — ellers virker
-      "opdater nu"-knappen ikke for tekster i produktion endnu
+- [x] Tilføj `GOOGLE_TEXTS_DOC_HTML_URL` som repository secret på
+      GitHub — sat 2026-09-02 via `gh secret set` (værdi fra `.env`).
+      Samtidig rettet en bug i `sync-events.yml`: `git add
+      images/tekster/` fejlede med "pathspec did not match any files"
+      (mappen fandtes ikke endnu), og `bash -e` dræbte hele steppet før
+      `git push` — hver sync-kørsel havde fejlet siden 29. aug. Nu
+      `mkdir -p images/nyheder images/tekster` før `git add`.
 - [ ] Lars mangler at skrive sin første tekst i tekster-Doc'et (kun
       titlen "Hjemmeside - Tekster" er der lige nu, intet med
       "Overskrift 2"-stilen endnu, så texts.json er tom)
