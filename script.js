@@ -43,8 +43,11 @@ function eventToHtml(event) {
   const day = date.getDate();
   const month = DANISH_MONTHS_SHORT[date.getMonth()];
 
-  const linkHtml = event.link
-    ? `<a class="event-link" href="${event.link}" target="_blank" rel="noopener">billetter →</a>`
+  // kun rigtige URL'er bliver et link — Lars skriver fx "Ikke offentligt"
+  // i Sheet'et for lukkede arrangementer, og det skal ikke blive et
+  // (i øvrigt ødelagt) hyperlink
+  const linkHtml = /^https?:\/\//i.test(event.link || "")
+    ? `<a class="event-link" href="${event.link}" target="_blank" rel="noopener">Link →</a>`
     : "";
 
   // valgfrit projekt-mærke (fx "STGYE") — udelades for løsere/frilance-optrædener
