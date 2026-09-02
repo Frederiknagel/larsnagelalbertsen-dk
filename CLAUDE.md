@@ -136,6 +136,18 @@ Sheet (fri tekst passer bedre til nyhedsopslag end regneark-celler):
   en indlægs-overskrift og tabte billedet. Nu: en overskrift uden tekst
   er ikke en indlægs-grænse; dens indhold behandles som brødtekst i det
   aktuelle indlæg (`is_heading = ... and el.get_text(strip=True) != ""`).
+- **Formatering fra Doc'et (tilføjet 2026-09-02)**: Google Docs lægger AL
+  formatering i CSS-klasser (`.c3{font-family:"Times New Roman"}`), ikke i
+  tags — så tag-hvidlisten smed det hele væk. `parse_doc_style_classes()`
+  parser nu Docs' `<style>`-tabel, og et lille **kurateret** udvalg
+  oversættes: `text-align:center` → `<p class="center">`, serif-familie →
+  `<p class="serif">` (vist i Lora, webfont kun på Tekster-siden), fed/
+  kursiv fra span-klasser → `<strong>/<em>`, tom linje mellem strofer →
+  `<p class="gap">`. Titlens egen justering/serif → `title_align`/
+  `title_serif` i JSON, sat på `<h2>` af `news.js`/`texts.js`. **Vilkårlige
+  fonte slippes bevidst ikke løs** — kun serif/ikke-serif, for at bevare
+  det monokrome udtryk. Styling-CSS ligger på `.news-body`-klasserne i
+  `style.css` (deles med Tekster).
 - **Status: sat op og testet med et rigtigt Google Doc**, inkl. billede
   (Lars' "Ny hjemmeside"-opslag har et saxofon-foto)
 
@@ -149,11 +161,13 @@ ikke omdøbt til noget generisk fælles, for at holde de to features
 nemme at ræsonnere om hver for sig, selvom det er lidt duplikeret kode.
 - `texts.js` er en næsten identisk kopi af `news.js` (anden fetch-URL,
   andet element-id: `#texts-list`)
-- Den tomme-overskrift-kvirk fra Nyhedsdata ovenfor er også rettet her
-  (samme 1:1-kopi)
-- **Status: live.** Lars har skrevet sin første tekst (digtet "Digt"),
-  synket 2026-09-02. `GOOGLE_TEXTS_DOC_HTML_URL` er sat som repository
-  secret, så "opdater nu"-knappen virker hele vejen igennem.
+- Den tomme-overskrift-kvirk **og** formaterings-oversættelsen fra
+  Nyhedsdata ovenfor gælder også her (samme 1:1-kopi). Serif-digte er
+  primært hvorfor formaterings-delen blev lavet — se Nyhedsdata.
+- **Status: live.** Lars' digt "FORÅR" er synket 2026-09-02 og vises
+  centreret i serif (Lora), som han satte det op i Doc'et.
+  `GOOGLE_TEXTS_DOC_HTML_URL` er sat som repository secret, så
+  "opdater nu"-knappen virker hele vejen igennem.
 
 ## Lokal udvikling
 
@@ -269,7 +283,8 @@ klare fra kode)**:
       `git push` — hver sync-kørsel havde fejlet siden 29. aug. Nu
       `mkdir -p images/nyheder images/tekster` før `git add`.
 - [x] Lars har skrevet sin første tekst i tekster-Doc'et (digtet
-      "Digt") — synket til `texts.json` 2026-09-02, siden er live
+      "FORÅR") — synket til `texts.json` 2026-09-02, siden er live.
+      Centrering + serif fra Doc'et vises nu (se Tekstdata → Formatering)
 - [ ] Billeder i `images/` er fra prototypen — bekræft med Lars om de
       skal bruges i den endelige version, eller om der kommer nye
 - [ ] `images/nyheder/d0f8bd2ae933f049.png` er et forældreløst
