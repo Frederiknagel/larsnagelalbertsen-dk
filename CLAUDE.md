@@ -129,7 +129,15 @@ Sheet (fri tekst passer bedre til nyhedsopslag end regneark-celler):
   `images/nyheder/` (filnavn = content-hash, så gentagne kørsler ikke
   skaber dubletter), og `src` skrives om til den lokale sti. GitHub
   Action'en committer også disse filer, ikke kun `news.json`.
+- **Kvirk (rettet 2026-09-02)**: når man indsætter et billede i sit eget
+  afsnit i Doc'et, kan afsnittet arve "Overskrift 2"-stilen fra linjen
+  omkring — i den publicerede HTML bliver det en *tom* `<h2>` der kun
+  rummer `<img>`. `parse_html_to_posts()` behandlede alt `<h1>/<h2>` som
+  en indlægs-overskrift og tabte billedet. Nu: en overskrift uden tekst
+  er ikke en indlægs-grænse; dens indhold behandles som brødtekst i det
+  aktuelle indlæg (`is_heading = ... and el.get_text(strip=True) != ""`).
 - **Status: sat op og testet med et rigtigt Google Doc**, inkl. billede
+  (Lars' "Ny hjemmeside"-opslag har et saxofon-foto)
 
 ## Tekstdata (`texts.json`)
 
@@ -141,9 +149,11 @@ ikke omdøbt til noget generisk fælles, for at holde de to features
 nemme at ræsonnere om hver for sig, selvom det er lidt duplikeret kode.
 - `texts.js` er en næsten identisk kopi af `news.js` (anden fetch-URL,
   andet element-id: `#texts-list`)
-- **Status: siden er bygget og virker, men Google Doc'et er tomt**
-  (kun titlen "Hjemmeside - Tekster", intet skrevet med "Overskrift 2"
-  endnu) — Lars mangler at skrive sin første tekst
+- Den tomme-overskrift-kvirk fra Nyhedsdata ovenfor er også rettet her
+  (samme 1:1-kopi)
+- **Status: live.** Lars har skrevet sin første tekst (digtet "Digt"),
+  synket 2026-09-02. `GOOGLE_TEXTS_DOC_HTML_URL` er sat som repository
+  secret, så "opdater nu"-knappen virker hele vejen igennem.
 
 ## Lokal udvikling
 
@@ -258,8 +268,10 @@ klare fra kode)**:
       (mappen fandtes ikke endnu), og `bash -e` dræbte hele steppet før
       `git push` — hver sync-kørsel havde fejlet siden 29. aug. Nu
       `mkdir -p images/nyheder images/tekster` før `git add`.
-- [ ] Lars mangler at skrive sin første tekst i tekster-Doc'et (kun
-      titlen "Hjemmeside - Tekster" er der lige nu, intet med
-      "Overskrift 2"-stilen endnu, så texts.json er tom)
+- [x] Lars har skrevet sin første tekst i tekster-Doc'et (digtet
+      "Digt") — synket til `texts.json` 2026-09-02, siden er live
 - [ ] Billeder i `images/` er fra prototypen — bekræft med Lars om de
       skal bruges i den endelige version, eller om der kommer nye
+- [ ] `images/nyheder/d0f8bd2ae933f049.png` er et forældreløst
+      test-billede fra det oprindelige nyheds-testopslag (ikke længere
+      refereret nogen steder) — kan slettes ved lejlighed
