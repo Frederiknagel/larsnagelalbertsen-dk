@@ -198,6 +198,11 @@ fire sider:
   anden navnevariant uden at ændre det visuelle design
   (`.visually-hidden` er en standard tilgængeligheds-klasse, se
   `style.css`)
+- **Historien/Nyheder/Tekster har også `.visually-hidden` `<h1>`**
+  (2026-09-02): den synlige "Historien"/"Nyheder"/"Tekster"-overskrift
+  blev fjernet — den aktive fane i topnavigationen viser allerede
+  hvilken side man er på, så den var visuel støj. `<h1>`'en er beholdt
+  skjult, så hver side stadig har præcis én h1 for SEO/skærmlæsere.
 - Lille disambiguerings-sætning på STGYE-siden ("ikke at forveksle med
   Stan Getz") — både for besøgende og for at fange den søgetrafik
 - `robots.txt` + `sitemap.xml` i roden
