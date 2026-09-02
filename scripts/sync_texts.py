@@ -154,7 +154,13 @@ def parse_html_to_posts(html: str) -> list[dict]:
     current = None
 
     for el in body.find_all(["h1", "h2", "p", "ul", "ol"], recursive=True):
-        if el.name in ("h1", "h2"):
+        # En overskrift uden tekst er ikke en reel tekst-grænse. Google
+        # Docs lægger fx et indsat billede i sit eget afsnit, som kan arve
+        # "Overskrift 2"-stilen fra linjen omkring — det bliver en tom <h2>
+        # der kun rummer et <img>. Behandl den (og billedet) som brødtekst
+        # i den aktuelle tekst i stedet for at smide den væk.
+        is_heading = el.name in ("h1", "h2") and el.get_text(strip=True) != ""
+        if is_heading:
             if current and current["body_parts"]:
                 posts.append(current)
             heading_text = el.get_text(strip=True)
