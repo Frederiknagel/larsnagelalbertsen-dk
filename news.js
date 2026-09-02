@@ -40,9 +40,14 @@ function renderNews(listEl, posts) {
 function postToHtml(post) {
   const dateHtml = post.date ? `<p class="news-date">${formatDate(post.date)}</p>` : "";
 
+  // titel-formatering overtaget fra Google Doc'et (se scripts/sync_news.py)
+  const titleClass = ["news-title",
+    post.title_align === "center" ? "center" : "",
+    post.title_serif ? "serif" : ""].filter(Boolean).join(" ");
+
   return `
     <li class="news-post">
-      <h2 class="news-title">${escapeHtml(post.title)}</h2>
+      <h2 class="${titleClass}">${escapeHtml(post.title)}</h2>
       ${dateHtml}
       <div class="news-body">${post.body_html || ""}</div>
     </li>
