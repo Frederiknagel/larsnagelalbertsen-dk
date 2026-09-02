@@ -289,6 +289,21 @@ main {
      standard "balance"-opførsel; læserækkefølgen på tværs af kolonner
      er derfor ikke 100% garanteret, men layoutet virker korrekt. */
 }
+
+/* Fastlåste kolonne-brud. Uden dem fordeler "balance"-algoritmen
+   felterne uforudsigeligt, og hver gang rækkefølgen i HTML ændres
+   hopper billeder mellem kolonner. Et element med .col-break starter
+   altid en ny kolonne, så de tre kolonner har et fast indhold:
+   1) formationen + de tidlige fotos + koncertprogrammer '94-'95
+   2) 90'er-saxfotoet + Lars Bo-teksten + CD-covers + program '96
+   3) de to avisudklip + den moderne æra + de to sidste tekstkort
+   Kun ved 3 kolonner — på mobil (2 kol., se nedenfor) balanceres frit. */
+@media (min-width: 561px) {
+  .gallery--masonry .col-break {
+    -webkit-column-break-before: always; /* ældre Safari/WebKit */
+    break-before: column;
+  }
+}
 .gallery--masonry img {
   width: 100%;
   height: auto;
